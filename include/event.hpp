@@ -24,9 +24,5 @@ struct Event {
             short x, y;
             unsigned int buttonState;
         } mouse;
-
-        struct {
-            short width, height;
-        } resize;
     };
 };

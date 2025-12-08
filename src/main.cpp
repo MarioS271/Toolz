@@ -29,6 +29,11 @@ public:
 
         r.drawRegion(anchor::topLeft(), size, color);
         r.drawText(anchor::topLeft(), L"[Main Menu] [System Info] [Tasks] [File Manager] [Git Dash]", color);
+        r.drawText(
+            anchor::topLeft(),
+            std::to_wstring(screen::width()) + L"x" + std::to_wstring(screen::height()),
+            color
+        );
     }
 };
 
@@ -68,14 +73,6 @@ int main() {
 
     EventHandler events(hInput);
 
-    DWORD mode;
-    GetConsoleMode(hInput, &mode);
-    SetConsoleMode(hInput,
-        ENABLE_WINDOW_INPUT |
-        ENABLE_MOUSE_INPUT |
-        ENABLE_EXTENDED_FLAGS
-    );
-
     TopBar top;
     BottomBar bottom;
     MainPanel main;
@@ -91,7 +88,7 @@ int main() {
             running = false;
 
         if (e.type == EventType::Resize) {
-            renderer.clearArea(anchor::topLeft(), anchor::bottomRight());
+            system("cls");
             ui.markAllDirty();
         }
     });
@@ -102,7 +99,5 @@ int main() {
         Sleep(static_cast<DWORD>(1000 / constants::FRAMERATE));
     }
 
-    renderer.clearArea(anchor::topLeft(), anchor::bottomRight());
-    SetConsoleMode(hInput, mode);
     return 0;
 }

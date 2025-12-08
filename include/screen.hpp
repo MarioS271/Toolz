@@ -6,11 +6,13 @@
 #include "anchors.hpp"
 
 namespace screen {
-    inline SHORT width() {
+    inline SHORT width()
+    {
         return anchor::bottomRight().X;
     }
 
-    inline SHORT height() {
+    inline SHORT height()
+    {
         return anchor::bottomRight().Y;
     }
 }

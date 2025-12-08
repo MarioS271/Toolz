@@ -15,15 +15,18 @@ EventHandler::EventHandler(HANDLE input)
         ENABLE_WINDOW_INPUT);
 }
 
-EventHandler::~EventHandler() {
+EventHandler::~EventHandler()
+{
     SetConsoleMode(hInput, prevMode);
 }
 
-void EventHandler::addListener(Callback cb) {
+void EventHandler::addListener(Callback cb)
+{
     listeners.push_back(cb);
 }
 
-void EventHandler::pollEvents() {
+void EventHandler::pollEvents()
+{
     DWORD eventsAvailable;
     INPUT_RECORD input;
 
@@ -35,7 +38,8 @@ void EventHandler::pollEvents() {
         ReadConsoleInput(hInput, &input, 1, &eventsRead);
 
         Event e{EventType::None};
-        switch (input.EventType) {
+        switch (input.EventType)
+        {
             case KEY_EVENT:
                 e.type = EventType::Key;
                 e.key.key = input.Event.KeyEvent.wVirtualKeyCode;
@@ -49,12 +53,11 @@ void EventHandler::pollEvents() {
                 break;
             case WINDOW_BUFFER_SIZE_EVENT:
                 e.type = EventType::Resize;
-                e.resize.width = input.Event.WindowBufferSizeEvent.dwSize.X;
-                e.resize.height = input.Event.WindowBufferSizeEvent.dwSize.Y;
                 break;
         }
 
-        if (e.type != EventType::None) {
+        if (e.type != EventType::None)
+        {
             for (auto &cb : listeners)
                 cb(e);
         }
