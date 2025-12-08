@@ -1,0 +1,20 @@
+[
+{
+  "directory": "D:/Programmieren/C++/Toolz/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -ID:/Programmieren/C++/Toolz/include -g -std=gnu++23 -o CMakeFiles\\toolz.dir\\src\\app\\event-handler.cpp.obj -c D:\\Programmieren\\C++\\Toolz\\src\\app\\event-handler.cpp",
+  "file": "D:/Programmieren/C++/Toolz/src/app/event-handler.cpp",
+  "output": "D:/Programmieren/C++/Toolz/build/CMakeFiles/toolz.dir/src/app/event-handler.cpp.obj"
+},
+{
+  "directory": "D:/Programmieren/C++/Toolz/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -ID:/Programmieren/C++/Toolz/include -g -std=gnu++23 -o CMakeFiles\\toolz.dir\\src\\app\\renderer.cpp.obj -c D:\\Programmieren\\C++\\Toolz\\src\\app\\renderer.cpp",
+  "file": "D:/Programmieren/C++/Toolz/src/app/renderer.cpp",
+  "output": "D:/Programmieren/C++/Toolz/build/CMakeFiles/toolz.dir/src/app/renderer.cpp.obj"
+},
+{
+  "directory": "D:/Programmieren/C++/Toolz/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -ID:/Programmieren/C++/Toolz/include -g -std=gnu++23 -o CMakeFiles\\toolz.dir\\src\\main.cpp.obj -c D:\\Programmieren\\C++\\Toolz\\src\\main.cpp",
+  "file": "D:/Programmieren/C++/Toolz/src/main.cpp",
+  "output": "D:/Programmieren/C++/Toolz/build/CMakeFiles/toolz.dir/src/main.cpp.obj"
+}
+]
