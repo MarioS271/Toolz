@@ -1,13 +1,14 @@
 /**
- * @file bottom_bar.hpp
+ * @file bottom.hpp
  * @authors MarioS271
  */
 
+#pragma once
+
 #include <windows.h>
-#include "panel.hpp"
-#include "screen.hpp"
-#include "anchors.hpp"
-#include "colors.hpp"
+#include "class/panel.hpp"
+#include "helper/anchors.hpp"
+#include "helper/colors.hpp"
 #include "constants.hpp"
 
 class BottomBar : public Panel {
@@ -16,8 +17,8 @@ public:
         WORD color = Colors::Fg::white | Colors::Fg::intense | Colors::Bg::blue | Colors::Bg::intense;
 
         COORD size = {
-            screen::width(),
-            (SHORT)1
+            anchor::right(),
+            SHORT{1},
         };
         r.drawRegion(anchor::bottomLeft(), size, color);
 
@@ -30,8 +31,11 @@ public:
         drawPos.X += static_cast<SHORT>(text.length() + 2);
 
         // Viewport Resolution
-        text = std::to_wstring(screen::width()) + L"x" + std::to_wstring(screen::height());
+        text = std::to_wstring(anchor::right()) + L"x" + std::to_wstring(anchor::right());
         r.drawText(drawPos, text, color);
         drawPos.X += static_cast<SHORT>(text.length() + 2);
+
+        // Mouse Cursor Position (red if clicked)
+        ;
     }
 };

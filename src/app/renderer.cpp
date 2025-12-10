@@ -3,8 +3,8 @@
  * @authors MarioS271
  */
 
-#include "renderer.hpp"
-#include "anchors.hpp"
+#include "class/renderer.hpp"
+#include "helper/anchors.hpp"
 
 Renderer::Renderer(HANDLE console)
     : hConsole(console)

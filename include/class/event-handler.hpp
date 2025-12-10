@@ -8,7 +8,7 @@
 #include <vector>
 #include <functional>
 #include <windows.h>
-#include "event.hpp"
+#include "type/event.hpp"
 
 class EventHandler {
 public:

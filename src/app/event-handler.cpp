@@ -3,7 +3,7 @@
  * @authors MarioS271
  */
 
-#include "event-handler.hpp"
+#include "class/event-handler.hpp"
 
 EventHandler::EventHandler(HANDLE input)
     : hInput(input)
@@ -15,7 +15,6 @@ EventHandler::EventHandler(HANDLE input)
     mode |= ENABLE_MOUSE_INPUT | ENABLE_WINDOW_INPUT;
     SetConsoleMode(hInput, mode);
 }
-
 
 EventHandler::~EventHandler() {
     SetConsoleMode(hInput, prevMode);
@@ -54,14 +53,15 @@ void EventHandler::pollEvents() {
                 e.mouse.controlState = input.Event.MouseEvent.dwControlKeyState;
                 e.mouse.eventFlags = input.Event.MouseEvent.dwEventFlags;
                 break;
+                
             case WINDOW_BUFFER_SIZE_EVENT:
                 e.type = EventType::Resize;
                 break;
         }
 
         if (e.type != EventType::None) {
-            for (auto &cb : listeners)
-                cb(e);
+            for (auto &callback : listeners)
+                callback(e);
         }
     }
 }

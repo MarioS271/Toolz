@@ -5,24 +5,21 @@
 
 #pragma once
 
-#include <unordered_map>
 #include <windows.h>
-#include "renderer.hpp"
-#include "event.hpp"
+#include "type/event.hpp"
+#include "class/renderer.hpp"
 
 class Panel {
 protected:
     bool dirty{true};
 
-    std::unordered_map<std::string, SHORT> state;
-
 public:
     virtual ~Panel() = default;
 
-    virtual void redraw(Renderer &renderer) = 0;
+    virtual void redraw(Renderer& renderer) = 0;
 
-    virtual bool onMouse(const Event &m) { return false; }
-    virtual bool onKey(const Event &k) { return false; }
+    virtual bool onMouse(const Event& m) { return false; }
+    virtual bool onKey(const Event& k) { return false; }
 
     virtual bool contains(COORD coords) { return false; }
 

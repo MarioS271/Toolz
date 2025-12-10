@@ -1,6 +1,6 @@
 /**
  * @file colors.hpp
- * @author ...
+ * @authors MarioS271
  */
 
 #pragma once

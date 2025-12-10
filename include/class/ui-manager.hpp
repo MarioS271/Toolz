@@ -7,12 +7,11 @@
 
 #include <algorithm>
 #include <vector>
-#include "panel.hpp"
-#include "renderer.hpp"
-#include "event.hpp"
-#include "screen.hpp"
-#include "colors.hpp"
-#include "anchors.hpp"
+#include "type/event.hpp"
+#include "class/panel.hpp"
+#include "class/renderer.hpp"
+#include "helper/colors.hpp"
+#include "helper/anchors.hpp"
 
 class UIManager {
 private:
@@ -41,16 +40,16 @@ public:
             p->markDirty();
     }
 
-    void redraw() {
+    void update() {
         bool redraw{true};
 
-        if (screen::width() < (SHORT)60 ||
-            screen::height() < (SHORT)20)
+        if (anchor::right() < SHORT{60} ||
+            anchor::bottom() < SHORT{20})
         { 
             redraw = false;
 
             COORD anchor = anchor::center();
-            anchor.X -= static_cast<SHORT>(8);
+            anchor.X -= SHORT{8};
             renderer.drawText(anchor, L"Screen too small!", Colors::Fg::white);
         }
 
@@ -65,37 +64,27 @@ public:
     }
 
     void dispatchEvent(const Event& e) {
-        switch (e.type) {
-            case EventType::Mouse: {
-                for (auto it = panels.rbegin(); it != panels.rend(); ++it) {
-                    Panel* p = *it;
+        if (anchor::right() < SHORT{60} ||
+            anchor::bottom() < SHORT{20})
+        { 
+            return;
+        }
 
-                    if (p->contains(e.mouse.position)) {
-                        if (p->onMouse(e))
-                            return;
-                    }
+        switch (e.type) {
+            case EventType::Mouse:
+                for (auto p : panels) {
+                    if (p->contains(e.mouse.position))
+                        p->onMouse(e);
                 }
-            }
+                break;
 
             case EventType::Key:
                 for (auto p : panels)
-                    if (p->onKey(e)) return;
+                    p->onKey(e);
                 break;
 
             default:
                 break;
         }
-    }
-
-    void clearCenterArea() {
-        COORD size = {
-            screen::width(),
-            static_cast<SHORT>(screen::height() - 2),
-        };
-        COORD anchor_lu = {
-            anchor::topLeft().X,
-            static_cast<SHORT>(anchor::topLeft().Y + 1),
-        };
-        renderer.clearArea(anchor_lu, size);
     }
 };

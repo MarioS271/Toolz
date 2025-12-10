@@ -1,5 +1,5 @@
 /**
- * @file git.hpp
+ * @file tasks.hpp
  * @authors MarioS271
  */
 
@@ -12,14 +12,14 @@
 #include "helper/clearMain.hpp"
 #include "constants.hpp"
 
-class GitPanel : public Panel {
+class TasksPanel : public Panel {
 public:
     void redraw(Renderer &r) override {
         clearMain(r);
 
         COORD pos = anchor::center();
-        pos.X -= 5;
+        pos.X -= 6;
 
-        r.drawText(pos, L"Git Content", Colors::Fg::red | Colors::Fg::intense);
+        r.drawText(pos, L"Tasks Content", Colors::Fg::red | Colors::Fg::intense);
     }
 };
