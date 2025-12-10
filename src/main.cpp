@@ -3,66 +3,23 @@
  * @authors MarioS271
  */
 
+#include <string>
+#include <array>
+#include <unordered_map>
 #include <windows.h>
 
 #include "constants.hpp"
 
-#include "anchors.hpp"
-#include "screen.hpp"
-
-#include "panel.hpp"
 #include "ui-manager.hpp"
 #include "renderer.hpp"
 
 #include "event-handler.hpp"
-#include "event.hpp"
 
-class TopBar : public Panel {
-public:
-    void redraw(Renderer &r) override {
-        COORD size = {
-            screen::width(),
-            static_cast<SHORT>(1)
-        };
+#include "modules/top_bar.hpp"
+#include "modules/bottom_bar.hpp"
+#include "modules/main_menu.hpp"
+#include "modules/git.hpp"
 
-        WORD color = BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE;
-
-        r.drawRegion(anchor::topLeft(), size, color);
-        r.drawText(anchor::topLeft(), L"[Main Menu] [System Info] [Tasks] [File Manager] [Git Dash]", color);
-        r.drawText(
-            anchor::topLeft(),
-            std::to_wstring(screen::width()) + L"x" + std::to_wstring(screen::height()),
-            color
-        );
-    }
-};
-
-class MainPanel : public Panel {
-public:
-    void redraw(Renderer &r) override {
-        COORD pos = anchor::center();
-        pos.X -= 5;
-
-        r.drawText(pos, L"Main Content", FOREGROUND_INTENSITY | FOREGROUND_RED);
-    }
-};
-
-class BottomBar : public Panel {
-public:
-    void redraw(Renderer &r) override {
-        COORD size = {
-            screen::width(),
-            static_cast<SHORT>(1)
-        };
-
-        WORD color = BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE;
-
-        r.drawRegion(anchor::bottomLeft(), size, color);
-
-        std::wstring text = L"Toolz v" + std::wstring(constants::VERSION);
-        r.drawText(anchor::bottomLeft(), text, color);
-    }
-};
 
 int main() {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -73,13 +30,14 @@ int main() {
 
     EventHandler events(hInput);
 
-    TopBar top;
-    BottomBar bottom;
-    MainPanel main;
+    TopBar pn_top;
+    BottomBar pn_bottom;
+    MainPanel pn_main;
+    GitPanel pn_git;
 
-    ui.addPanel(&top);
-    ui.addPanel(&bottom);
-    ui.addPanel(&main);
+    ui.loadPanel(&pn_top);
+    ui.loadPanel(&pn_bottom);
+    ui.loadPanel(&pn_main);
 
     bool running = true;
 
@@ -90,10 +48,33 @@ int main() {
         if (e.type == EventType::Resize) {
             system("cls");
             ui.markAllDirty();
+            SetConsoleMode(hInput, events.getMode());
         }
+
+        ui.dispatchEvent(e);
     });
 
+    SHORT currMenu{0}, currMenuPrev{0};
     while (running) {
+        currMenuPrev = currMenu;
+        currMenu = pn_top.getCurrMenu();
+
+        if (currMenu != currMenuPrev) {
+            ui.unloadPanel(&pn_main);
+            ui.unloadPanel(&pn_git);
+
+            ui.clearCenterArea();
+
+            switch (currMenu) {
+                case 0: ui.loadPanel(&pn_main); break;
+                case 1: break;
+                case 2: break;
+                case 3: break;
+                case 4: ui.loadPanel(&pn_git); break;
+                default: break;
+            }
+        }
+
         events.pollEvents();
         ui.redraw();
         Sleep(static_cast<DWORD>(1000 / constants::FRAMERATE));

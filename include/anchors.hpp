@@ -8,16 +8,14 @@
 #include <windows.h>
 
 namespace anchor {
-    inline COORD topLeft()
-    {
+    inline COORD topLeft() {
         return {
             static_cast<SHORT>(0),
             static_cast<SHORT>(0)
         };
     }
 
-    inline COORD topRight()
-    {
+    inline COORD topRight() {
         CONSOLE_SCREEN_BUFFER_INFO csbi;
         GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
         return {
@@ -26,8 +24,7 @@ namespace anchor {
         };
     }
 
-    inline COORD bottomLeft()
-    {
+    inline COORD bottomLeft() {
         CONSOLE_SCREEN_BUFFER_INFO csbi;
         GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
         return {
@@ -36,8 +33,7 @@ namespace anchor {
         };
     }
 
-    inline COORD bottomRight()
-    {
+    inline COORD bottomRight() {
         CONSOLE_SCREEN_BUFFER_INFO csbi;
         GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
         return {
@@ -46,8 +42,7 @@ namespace anchor {
         };
     }
 
-    inline COORD center()
-    {
+    inline COORD center() {
         CONSOLE_SCREEN_BUFFER_INFO csbi;
         GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
         return {

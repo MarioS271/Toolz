@@ -5,6 +5,8 @@
 
 #pragma once
 
+#include <windows.h>
+
 enum class EventType {
     Key,
     Mouse,
@@ -17,12 +19,16 @@ struct Event {
     union {
         struct {
             unsigned short key;
+            wchar_t character;
             bool pressed;
+            unsigned int controlState;
         } key;
 
         struct {
-            short x, y;
+            COORD position;
             unsigned int buttonState;
+            unsigned int controlState;
+            unsigned int eventFlags;
         } mouse;
     };
 };

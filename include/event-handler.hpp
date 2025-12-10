@@ -17,6 +17,7 @@ public:
 private:
     HANDLE hInput;
     DWORD prevMode;
+    WORD mode;
     std::vector<Callback> listeners;
 
 public:
@@ -25,4 +26,6 @@ public:
 
     void addListener(Callback cb);
     void pollEvents();
+
+    WORD getMode() const { return mode; }
 };
