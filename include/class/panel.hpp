@@ -11,7 +11,8 @@
 
 class Panel {
 protected:
-    bool dirty{true};
+    bool dirty = true;
+    bool partRefresh = false;
 
 public:
     virtual ~Panel() = default;

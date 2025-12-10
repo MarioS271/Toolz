@@ -24,14 +24,14 @@ public:
         WORD color = Colors::Fg::white | Colors::Fg::intense | Colors::Bg::blue | Colors::Bg::intense;
         WORD selColor = Colors::Fg::black | Colors::Bg::green | Colors::Bg::intense;
 
-        COORD size{
+        COORD size = {
             anchor::right(),
             SHORT{1}
         };
         r.clearArea(anchor::topLeft(), size);
         r.drawRegion(anchor::topLeft(), size, color);
 
-        COORD drawPos{anchor::topLeft()};
+        COORD drawPos = anchor::topLeft();
         std::array<std::wstring, 5> strs = {
             L"[Main Menu]",
             L"[System Info]",
@@ -46,7 +46,7 @@ public:
     }
 
     void onKey(const Event& k) override {
-        SHORT previous{state.sel_menu};
+        SHORT previous = state.sel_menu;
 
         switch (k.key.key) {
             case VK_F1: state.sel_menu = 0; break;

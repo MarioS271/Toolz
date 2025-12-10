@@ -27,8 +27,8 @@
 int main() {
     SetConsoleTitleA("Toolz");
 
-    HANDLE hConsole{GetStdHandle(STD_OUTPUT_HANDLE)};
-    HANDLE hInput{GetStdHandle(STD_INPUT_HANDLE)};
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
     
     Renderer renderer(hConsole);
     UIManager ui(renderer);
@@ -48,8 +48,8 @@ int main() {
     ui.loadPanel(&pn_main);
     
     
-    bool running{true};
-    SHORT currMenu{0}, currMenuPrev{0};
+    bool running = true;
+    SHORT currMenu = 0, currMenuPrev = 0;
     
     events.addListener([&](const Event &e){
         if (e.type == EventType::Key && e.key.pressed && e.key.key == VK_ESCAPE)
