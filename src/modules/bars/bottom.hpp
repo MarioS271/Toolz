@@ -12,18 +12,25 @@
 #include "constants.hpp"
 
 class BottomBar : public Panel {
+private:
+    struct State {
+        COORD lastMouseClick;
+        bool mouseClicked;
+    };
+    State state;
+
 public:
     void redraw(Renderer &r) override {
         WORD color = Colors::Fg::white | Colors::Fg::intense | Colors::Bg::blue | Colors::Bg::intense;
 
-        COORD size = {
+        COORD drawPos = anchor::bottomLeft();
+        COORD size{
             anchor::right(),
             SHORT{1},
         };
-        r.drawRegion(anchor::bottomLeft(), size, color);
+        r.drawRegion(drawPos, size, color);
 
-        COORD drawPos = anchor::bottomLeft();
-        std::wstring text{L""};
+        std::wstring text = L"";
 
         // Version
         text = L"Toolz v" + std::wstring(constants::VERSION);
@@ -31,11 +38,16 @@ public:
         drawPos.X += static_cast<SHORT>(text.length() + 2);
 
         // Viewport Resolution
-        text = std::to_wstring(anchor::right()) + L"x" + std::to_wstring(anchor::right());
+        text = std::to_wstring(anchor::right()) + L"x" + std::to_wstring(anchor::bottom());
         r.drawText(drawPos, text, color);
         drawPos.X += static_cast<SHORT>(text.length() + 2);
 
         // Mouse Cursor Position (red if clicked)
-        ;
     }
+
+    void onMouse(const Event& m) override {
+
+    }
+
+    bool alwaysSendMouseEvent() override { return true; }
 };

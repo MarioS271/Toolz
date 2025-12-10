@@ -73,7 +73,7 @@ public:
         switch (e.type) {
             case EventType::Mouse:
                 for (auto p : panels) {
-                    if (p->contains(e.mouse.position))
+                    if (p->contains(e.mouse.position) || p->alwaysSendMouseEvent())
                         p->onMouse(e);
                 }
                 break;

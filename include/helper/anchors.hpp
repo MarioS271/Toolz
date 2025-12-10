@@ -18,7 +18,7 @@ namespace anchor {
         return SHORT{0};
     }
     inline SHORT bottom() {
-        return static_cast<SHORT>(csbi().dwSize.Y);
+        return static_cast<SHORT>(csbi().dwSize.Y - 1);
     }
     inline SHORT left() {
         return SHORT{0};
@@ -52,25 +52,25 @@ namespace anchor {
         };
     }
 
-    inline COORD topLeft_VADJ() {
+    inline COORD topLeftVA() {
         return {
             left(),
             static_cast<SHORT>(top() + 1),
         };
     }
-    inline COORD topRight_VADJ() {
+    inline COORD topRightVA() {
         return {
             right(),
             static_cast<SHORT>(top() + 1),
         };
     }
-    inline COORD bottomLeft_VADJ() {
+    inline COORD bottomLeftVA() {
         return {
             left(),
             static_cast<SHORT>(bottom() - 1),
         };
     }
-    inline COORD bottomRight_VADJ() {
+    inline COORD bottomRightVA() {
         return {
             right(),
             static_cast<SHORT>(bottom() - 1),

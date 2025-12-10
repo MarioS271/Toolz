@@ -18,10 +18,11 @@ public:
 
     virtual void redraw(Renderer& renderer) = 0;
 
-    virtual bool onMouse(const Event& m) { return false; }
-    virtual bool onKey(const Event& k) { return false; }
+    virtual void onMouse(const Event& m) {}
+    virtual void onKey(const Event& k) {}
 
     virtual bool contains(COORD coords) { return false; }
+    virtual bool alwaysSendMouseEvent() { return false; }
 
     void markDirty() { dirty = true; }
     bool isDirty() const { return dirty; }

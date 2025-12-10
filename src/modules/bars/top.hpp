@@ -20,19 +20,18 @@ private:
     State state;
 
 public:
-
     void redraw(Renderer &r) override {
         WORD color = Colors::Fg::white | Colors::Fg::intense | Colors::Bg::blue | Colors::Bg::intense;
         WORD selColor = Colors::Fg::black | Colors::Bg::green | Colors::Bg::intense;
 
-        COORD size = {
+        COORD size{
             anchor::right(),
             SHORT{1}
         };
         r.clearArea(anchor::topLeft(), size);
         r.drawRegion(anchor::topLeft(), size, color);
 
-        COORD drawPos = anchor::topLeft();
+        COORD drawPos{anchor::topLeft()};
         std::array<std::wstring, 5> strs = {
             L"[Main Menu]",
             L"[System Info]",
@@ -46,8 +45,8 @@ public:
         }
     }
 
-    bool onKey(const Event &k) override {
-        SHORT previous = state.sel_menu;
+    void onKey(const Event& k) override {
+        SHORT previous{state.sel_menu};
 
         switch (k.key.key) {
             case VK_F1: state.sel_menu = 0; break;
@@ -58,20 +57,16 @@ public:
             default: break;
         }
 
-        if (previous != state.sel_menu) {
+        if (previous != state.sel_menu)
             dirty = true;
-            return true;
-        }
-
-        return false;
     }
 
-    bool onMouse(const Event &m) override {
+    void onMouse(const Event& m) override {
         COORD pos = m.mouse.position;
         SHORT previous = state.sel_menu;
 
         if (m.mouse.buttonState != 1)
-            return false;
+            return;
 
         if (pos.X < 11)
             state.sel_menu = 0;
@@ -84,12 +79,8 @@ public:
         else if (pos.X > 46 && pos.X < 57)
             state.sel_menu = 4;
 
-        if (previous != state.sel_menu) {
+        if (previous != state.sel_menu)
             dirty = true;
-            return true;
-        }
-
-        return false;
     }
 
     bool contains(COORD coords) override {
