@@ -5,6 +5,7 @@
 
 #include "class/renderer.hpp"
 #include "helper/anchors.hpp"
+#include "helper/short_cast.hpp"
 
 Renderer::Renderer(HANDLE console)
     : hConsole(console)
@@ -53,8 +54,8 @@ void Renderer::drawBox(COORD topLeft, COORD bottomRight, WORD color) {
     WriteConsoleOutputCharacterW(hConsole, horizontal.c_str(), width, posBottom, &written);
 
     for (int y = 1; y < height - 1; ++y) {
-        COORD posLeft = {topLeft.X, static_cast<SHORT>(topLeft.Y + y)};
-        COORD posRight = {bottomRight.X, static_cast<SHORT>(topLeft.Y + y)};
+        COORD posLeft = {topLeft.X, scast(topLeft.Y + y)};
+        COORD posRight = {bottomRight.X, scast(topLeft.Y + y)};
         FillConsoleOutputAttribute(hConsole, color, 1, posLeft, &written);
         WriteConsoleOutputCharacterW(hConsole, L"│", 1, posLeft, &written);
 

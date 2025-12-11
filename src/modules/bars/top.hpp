@@ -41,7 +41,7 @@ public:
         };
         for (SHORT i = 0; i < 5; i++) {
             r.drawText(drawPos, strs[i], state.sel_menu == i ? selColor : color);
-            drawPos.X += static_cast<SHORT>(strs[i].length() + 1);
+            drawPos.X += scast(strs[i].length() + 1);
         }
     }
 

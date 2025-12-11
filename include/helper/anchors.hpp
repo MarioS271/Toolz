@@ -6,6 +6,7 @@
 #pragma once
 
 #include <windows.h>
+#include "helper/short_cast.hpp"
 
 namespace anchor {
     inline CONSOLE_SCREEN_BUFFER_INFO csbi() {
@@ -18,13 +19,13 @@ namespace anchor {
         return SHORT{0};
     }
     inline SHORT bottom() {
-        return static_cast<SHORT>(csbi().dwSize.Y - 1);
+        return scast(csbi().dwSize.Y - 1);
     }
     inline SHORT left() {
         return SHORT{0};
     }
     inline SHORT right() {
-        return static_cast<SHORT>(csbi().dwSize.X);
+        return scast(csbi().dwSize.X);
     }
 
     inline COORD topLeft() {
@@ -55,32 +56,32 @@ namespace anchor {
     inline COORD topLeftVA() {
         return {
             left(),
-            static_cast<SHORT>(top() + 1),
+            scast(top() + 1),
         };
     }
     inline COORD topRightVA() {
         return {
             right(),
-            static_cast<SHORT>(top() + 1),
+            scast(top() + 1),
         };
     }
     inline COORD bottomLeftVA() {
         return {
             left(),
-            static_cast<SHORT>(bottom() - 1),
+            scast(bottom() - 1),
         };
     }
     inline COORD bottomRightVA() {
         return {
             right(),
-            static_cast<SHORT>(bottom() - 1),
+            scast(bottom() - 1),
         };
     }
 
     inline COORD center() {
         return {
-            static_cast<SHORT>(right() / 2),
-            static_cast<SHORT>(bottom() / 2),
+            scast(right() / 2),
+            scast(bottom() / 2),
         };
     }
 }

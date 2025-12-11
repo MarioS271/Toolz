@@ -10,13 +10,12 @@
 #include "helper/anchors.hpp"
 #include "helper/colors.hpp"
 #include "constants.hpp"
-#include <iostream>
 
 class BottomBar : public Panel {
 private:
     struct State {
         COORD lastMousePos;
-        bool mouseClicked;
+        SHORT mouseClicked;
         bool partRefresh;
     };
     State state = {0};
@@ -26,8 +25,12 @@ public:
     void redraw(Renderer &r) override {
         using std::to_wstring;
 
-        WORD color = Colors::Fg::white | Colors::Fg::intense | Colors::Bg::blue | Colors::Bg::intense;
-        WORD mouseClickedColor = Colors::Fg::red | Colors::Fg::intense | Colors::Bg::blue | Colors::Bg::intense;
+        WORD colorModifier = Colors::Fg::intense | Colors::Bg::blue | Colors::Bg::intense;
+        
+        WORD color = Colors::Fg::white | colorModifier;
+        WORD leftClickColor = Colors::Fg::red | colorModifier;
+        WORD rightClickColor = Colors::Fg::blue | Colors::Bg::blue | Colors::Bg::intense;
+        WORD middleClickColor = Colors::Fg::green | colorModifier;
         
         COORD size{
             anchor::right(),
@@ -41,10 +44,10 @@ public:
         COORD ver_drawPos = anchor::bottomLeft();
 
         COORD vw_res_drawPos = anchor::bottomRight();
-        vw_res_drawPos.X -= static_cast<SHORT>(vw_res_text.length());
+        vw_res_drawPos.X -= scast(vw_res_text.length());
         
         COORD cur_drawPos = vw_res_drawPos;
-        cur_drawPos.X -= static_cast<SHORT>(cur_text.length() + 2);
+        cur_drawPos.X -= scast(cur_text.length() + 2);
 
         COORD cur_fill_drawPos = cur_drawPos;
         cur_fill_drawPos.X -= 1;
@@ -73,7 +76,16 @@ public:
             cur_fill_drawPos.X += cur_text.length();
             r.drawText(cur_fill_drawPos, L"  ", color);
 
-            r.drawText(cur_drawPos, cur_text, state.mouseClicked ? mouseClickedColor : color);
+            WORD chosenMouseClickColor = color;
+            switch (state.mouseClicked) {
+                case 1: chosenMouseClickColor = leftClickColor; break;
+                case 2: chosenMouseClickColor = rightClickColor; break;
+                case 4: chosenMouseClickColor = middleClickColor; break;
+                default: break;
+            }
+            
+            r.drawText(cur_drawPos, cur_text, chosenMouseClickColor);
+            // r.drawText(anchor::topLeft(), to_wstring(state.mouseClicked), color);
         }
 
         partRefresh = false;
@@ -85,8 +97,8 @@ public:
             dirty = true;
             partRefresh = true;
 
-            state.mouseClicked = static_cast<bool>(m.mouse.buttonState);
             state.lastMousePos = m.mouse.position;
+            state.mouseClicked = m.mouse.buttonState;
         }
     }
 

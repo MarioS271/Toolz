@@ -9,7 +9,8 @@
 #include "class/panel.hpp"
 #include "helper/anchors.hpp"
 #include "helper/colors.hpp"
-#include "helper/clearMain.hpp"
+#include "helper/clear_main.hpp"
+#include "helper/short_cast.hpp"
 #include "constants.hpp"
 
 class TasksPanel : public Panel {

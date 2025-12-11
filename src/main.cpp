@@ -13,7 +13,8 @@
 #include "class/ui-manager.hpp"
 #include "class/event-handler.hpp"
 
-#include "helper/clearMain.hpp"
+#include "helper/clear_main.hpp"
+#include "helper/short_cast.hpp"
 
 #include "modules/bars/top.hpp"
 #include "modules/bars/bottom.hpp"
