@@ -20,7 +20,7 @@ private:
     State state;
 
 public:
-    void redraw(Renderer &r) override {
+    void redraw(Renderer& r) override {
         WORD color = Colors::Fg::white | Colors::Fg::intense | Colors::Bg::blue | Colors::Bg::intense;
         WORD selColor = Colors::Fg::black | Colors::Bg::green | Colors::Bg::intense;
 

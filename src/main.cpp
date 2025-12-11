@@ -55,12 +55,12 @@ int main() {
     bool running = true;
     SHORT currMenu = 0, currMenuPrev = 0;
     
-    events.addListener([&](const Event &e){
+    events.addListener([&](const Event& e){
         if (e.type == EventType::Key && e.key.pressed && e.key.key == VK_ESCAPE)
         running = false;
     });
     
-    events.addListener([&](const Event &e){
+    events.addListener([&](const Event& e){
         if (e.type == EventType::Resize) {
             system("cls");
             ui.markAllDirty();
@@ -68,7 +68,7 @@ int main() {
         }
     });
     
-    events.addListener([&](const Event &e){
+    events.addListener([&](const Event& e){
         ui.dispatchEvent(e);
     });
     

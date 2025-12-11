@@ -17,7 +17,7 @@
 
 class DashPanel : public Panel {
 public:
-    void redraw(Renderer &r) override {
+    void redraw(Renderer& r) override {
         using std::to_wstring;
 
         clearMain(r);

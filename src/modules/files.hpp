@@ -15,7 +15,7 @@
 
 class FilesPanel : public Panel {
 public:
-    void redraw(Renderer &r) override {
+    void redraw(Renderer& r) override {
         clearMain(r);
 
         COORD pos = anchor::center();
