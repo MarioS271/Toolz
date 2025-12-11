@@ -32,7 +32,7 @@ public:
         WORD rightClickColor = Colors::Fg::blue | Colors::Bg::blue | Colors::Bg::intense;
         WORD middleClickColor = Colors::Fg::green | colorModifier;
         
-        COORD size{
+        COORD size = {
             anchor::right(),
             SHORT{1},
         };
@@ -85,7 +85,6 @@ public:
             }
             
             r.drawText(cur_drawPos, cur_text, chosenMouseClickColor);
-            // r.drawText(anchor::topLeft(), to_wstring(state.mouseClicked), color);
         }
 
         partRefresh = false;

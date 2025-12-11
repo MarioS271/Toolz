@@ -8,3 +8,4 @@ file(GLOB_RECURSE SRC src/*.cpp src/app/*.cpp)
 add_executable(toolz ${SRC})
 
 target_include_directories(toolz PRIVATE ${CMAKE_SOURCE_DIR}/include)
+target_link_libraries(toolz PRIVATE Secur32)

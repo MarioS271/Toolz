@@ -33,7 +33,7 @@ public:
 
         COORD drawPos = anchor::topLeft();
         std::array<std::wstring, 5> strs = {
-            L"[Main Menu]",
+            L"[Dashboard]",
             L"[System Info]",
             L"[Tasks]",
             L"[File Manager]",

@@ -1,11 +1,14 @@
 /**
  * @file main.cpp
  * @authors MarioS271
- */
+*/
+
+#define SECURITY_WIN32
 
 #include <string>
 #include <array>
 #include <windows.h>
+#include <secext.h>
 
 #include "constants.hpp"
 
@@ -18,7 +21,7 @@
 
 #include "modules/bars/top.hpp"
 #include "modules/bars/bottom.hpp"
-#include "modules/main_menu.hpp"
+#include "modules/dashboard.hpp"
 #include "modules/system.hpp"
 #include "modules/tasks.hpp"
 #include "modules/files.hpp"
@@ -38,7 +41,7 @@ int main() {
 
     TopBar pn_topbar;
     BottomBar pn_bottombar;
-    MainPanel pn_main;
+    DashPanel pn_dash;
     SystemPanel pn_system;
     TasksPanel pn_tasks;
     FilesPanel pn_files;
@@ -46,7 +49,7 @@ int main() {
     
     ui.loadPanel(&pn_topbar);
     ui.loadPanel(&pn_bottombar);
-    ui.loadPanel(&pn_main);
+    ui.loadPanel(&pn_dash);
     
     
     bool running = true;
@@ -74,7 +77,7 @@ int main() {
         currMenu = pn_topbar.getCurrMenu();
         
         if (currMenu != currMenuPrev) {
-            ui.unloadPanel(&pn_main);
+            ui.unloadPanel(&pn_dash);
             ui.unloadPanel(&pn_system);
             ui.unloadPanel(&pn_tasks);
             ui.unloadPanel(&pn_files);
@@ -83,7 +86,7 @@ int main() {
             clearMain(renderer);
 
             switch (currMenu) {
-                case 0: ui.loadPanel(&pn_main); break;
+                case 0: ui.loadPanel(&pn_dash); break;
                 case 1: ui.loadPanel(&pn_system); break;
                 case 2: ui.loadPanel(&pn_tasks); break;
                 case 3: ui.loadPanel(&pn_files); break;
