@@ -1,7 +1,7 @@
 # Toolz
 
-A powerful TUI application capable of git, file browsing, and much more!
-Written using the Windows API, so sadly, only Windows-Compatible (for now?)
+A TUI application capable of various system management things.
+Written using the windows API, so sadly, only compatible with windows.
 
 <br><hr><br>
 Licensed under the MIT License
